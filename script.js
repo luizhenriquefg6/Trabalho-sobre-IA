@@ -1,4 +1,3 @@
-const caixaPrincipal = document.querySelector(".caixa-principal");
 const caixaPerguntas = document.querySelector(".caixa-perguntas");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
@@ -6,129 +5,118 @@ const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
     {
-        enunciado: "Ao adentrar os portões do Castelo Digital, você se depara com uma tecnologia ancestral e poderosa: um grimório encantado que responde todas as dúvidas, cria imagens místicas e sons hiper-realistas. Como um cavaleiro da era moderna, qual o primeiro pensamento, Luiz?",
+        enunciado: "O Rei Arthur convoca o Conselho da IA para decidir o futuro do reino. Como a inteligência artificial pode ajudar na defesa do castelo?",
         alternativas: [
-            {
-                texto: "Isso é feitiçaria perigosa!",
-                afirmacao: "No início, Luiz receou os poderes que essa magia tecnológica poderia desencadear. "
-            },
-            {
-                texto: "Esta é a chave do reino!",
-                afirmacao: "Luiz desejou dominar a arte da IA para fortalecer seu castelo diário."
-            }
+            { texto: "Criar golems automatizados com magia algorítmica", afirmacao: "afirmação1" },
+            { texto: "Desenvolver um sistema de visão computacional para as muralhas", afirmacao: "afirmação2" }
         ]
     },
     {
-        enunciado: "Com a descoberta deste grimório, chamado Inteligência Artificial, uma sábia da torre de tecnologia decidiu realizar uma sequência de ensinamentos sobre esta magia. Ao final de uma aula, ela pede que Luiz escreva um pergaminho sobre o uso da IA nos salões de estudo. Qual atitude você toma?",
+        enunciado: "A Grande Biblioteca do Reino está ameaçada pelo fogo. Como a IA pode preservar o conhecimento milenar?",
         alternativas: [
-            {
-                texto: "Utiliza um pergaminho de busca na internet que emprega IA para encontrar informações valiosas e traduzir numa linguagem que facilite o entendimento.",
-                afirmacao: "Luiz conseguiu utilizar a IA para coletar conhecimentos valiosos."
-            },
-            {
-                texto: "Escreve o pergaminho com base nas conversas que teve com outros aprendizes, algumas pesquisas em bibliotecas virtuais e conhecimentos próprios sobre o tema.",
-                afirmacao: "Luiz sentiu mais facilidade em utilizar seus próprios recursos para escrever seu pergaminho."
-            }
+            { texto: "Digitalizar pergaminhos com OCR medieval e criar backup na nuvem", afirmacao: "afirmação3" },
+            { texto: "Treinar um modelo de linguagem para recitar os manuscritos", afirmacao: "afirmação4" }
         ]
     },
     {
-        enunciado: "Após a elaboração do pergaminho escrito, a sábia realizou um conclave entre a turma para entender como foi realizada a pesquisa e escrita. Nessa conversa também foi levantado um ponto muito importante: como a IA impacta o trabalho dos cavaleiros no futuro. Nesse conclave, como Luiz se posiciona?",
+        enunciado: "O oráculo da vila prevê uma invasão. Como a IA pode ajudar na estratégia de batalha?",
         alternativas: [
-            {
-                texto: "Defende a ideia de que a IA pode criar novas oportunidades de ofício e aprimorar habilidades humanas.",
-                afirmacao: "Luiz vem impulsionando a inovação na área de IA e luta para abrir novos caminhos profissionais com IA."
-            },
-            {
-                texto: "Me preocupo com os cavaleiros que perderão seus postos para autômatos e defendo a importância de proteger os trabalhadores.",
-                afirmacao: "A preocupação de Luiz com os trabalhadores motivou a criar uma guilda de estudos para discutir meios de utilização de IA de forma ética."
-            }
+            { texto: "Usar machine learning para prever rotas de ataque", afirmacao: "afirmação5" },
+            { texto: "Criar sistema de reconhecimento facial para identificar espiões", afirmacao: "afirmação6" }
         ]
     },
     {
-        enunciado: "Ao final do conclave, Luiz precisou criar uma imagem no computador que representasse o que pensa sobre IA. E agora?",
+        enunciado: "A colheita real está fraca. Como a IA pode otimizar a produção agrícola?",
         alternativas: [
-            {
-                texto: "Criar uma imagem utilizando uma plataforma de design como o Paint (pincéis tradicionais).",
-                afirmacao: "Luiz notou também que muitos aprendizes não sabem ainda utilizar as ferramentas tradicionais e decidiu compartilhar seus conhecimentos de design utilizando ferramentas de pintura digital para iniciantes."
-            },
-            {
-                texto: "Criar uma imagem utilizando um gerador de imagem de IA (grimório de criação).",
-                afirmacao: "Luiz acelerou o processo de criação de trabalhos utilizando geradores de imagem e agora consegue ensinar pessoas que sentem dificuldades em desenhar manualmente como utilizar também!"
-            }
+            { texto: "Implementar sensoriamento remoto nos campos", afirmacao: "afirmação7" },
+            { texto: "Desenvolver algoritmo de previsão climática medieval", afirmacao: "afirmação8" }
         ]
     },
     {
-        enunciado: "Luiz tem um trabalho em grupo de biologia para entregar na semana seguinte, o andamento do trabalho está um pouco atrasado e uma pessoa do seu grupo decidiu fazer com ajuda da IA. O problema é que o trabalho está totalmente igual ao do chat. O que você faz?",
+        enunciado: "O castelo precisa de um sistema de comércio justo. Como a IA pode ajudar?",
         alternativas: [
-            {
-                texto: "Escrever comandos para o chat é uma forma de contribuir com o trabalho, por isso não é um problema utilizar o texto inteiro.",
-                afirmacao: "Infelizmente Luiz passou a utilizar a IA para fazer todas suas tarefas e agora se sente dependente da IA para tudo."
-            },
-            {
-                texto: "O chat pode ser uma tecnologia muito avançada, mas é preciso manter a atenção pois toda máquina erra, por isso revisar o trabalho e contribuir com as perspectivas pessoais é essencial.",
-                afirmacao: "Luiz percebeu que toda IA reproduz orientações baseadas na empresa que programou e muito do que o chat escrevia não refletia o que pensava e por isso sabe que os textos gerados pela IA devem servir como auxílio e não resultado final. "
-            }
+            { texto: "Criar blockchain medieval para transações", afirmacao: "afirmação9" },
+            { texto: "Implementar sistema de recomendação para feiras livres", afirmacao: "afirmação10" }
         ]
-    },
+    }
 ];
 
-
 let atual = 0;
-let perguntaAtual;
-let historiaFinal = "";
+let pontuacao = {
+    afirmacao1: 0, afirmacao2: 0, afirmacao3: 0, afirmacao4: 0,
+    afirmacao5: 0, afirmacao6: 0, afirmacao7: 0, afirmacao8: 0,
+    afirmacao9: 0, afirmacao10: 0
+};
 
-function mostraPergunta() {
+function mostrarPergunta() {
     if (atual >= perguntas.length) {
-        mostraResultado();
+        mostrarResultado();
         return;
     }
-    perguntaAtual = perguntas[atual];
+    
+    const perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
-    caixaAlternativas.textContent = "";
-    mostraAlternativas();
+    
+    caixaAlternativas.innerHTML = "";
+    perguntaAtual.alternativas.forEach((alternativa) => {
+        const botao = document.createElement("button");
+        botao.textContent = alternativa.texto;
+        botao.addEventListener("click", () => {
+            pontuacao[alternativa.afirmacao]++;
+            atual++;
+            mostrarPergunta();
+        });
+        caixaAlternativas.appendChild(botao);
+    });
 }
 
-function mostraAlternativas(){
-    for(const alternativa of perguntaAtual.alternativas) {
-        const botaoAlternativas = document.createElement("button");
-        botaoAlternativas.textContent = alternativa.texto;
-        botaoAlternativas.addEventListener("click", () => respostaSelecionada(alternativa));
-        caixaAlternativas.appendChild(botaoAlternativas);
+function mostrarResultado() {
+    caixaPerguntas.style.display = "none";
+    caixaAlternativas.style.display = "none";
+    caixaResultado.style.display = "block";
+    
+    let resultadoTexto = "🏰 **Relatório do Conselho da IA** 🏰\n\n";
+    
+    const totalRespostas = Object.values(pontuacao).reduce((a,b) => a+b, 0);
+    
+    if (totalRespostas === perguntas.length) {
+        resultadoTexto += "⚔️ *Veredito do Castelo:* ⚔️\n";
+        resultadoTexto += "O reino abraçou a inteligência artificial com sabedoria medieval!\n\n";
+        resultadoTexto += "📜 *Conquistas desbloqueadas:* 📜\n";
+        
+        const escolhas = [];
+        if (pontuacao.afirmacao1 > 0) escolhas.push("• Golems algorítmicos patrulham as muralhas");
+        if (pontuacao.afirmacao2 > 0) escolhas.push("• Visão computacional vigia o horizonte");
+        if (pontuacao.afirmacao3 > 0) escolhas.push("• Biblioteca digitalizada para a eternidade");
+        if (pontuacao.afirmacao4 > 0) escolhas.push("• Modelo de linguagem guarda os pergaminhos");
+        if (pontuacao.afirmacao5 > 0) escolhas.push("• Machine learning prevê invasões");
+        if (pontuacao.afirmacao6 > 0) escolhas.push("• Reconhecimento facial nos portões");
+        if (pontuacao.afirmacao7 > 0) escolhas.push("• Sensoriamento remoto nos campos");
+        if (pontuacao.afirmacao8 > 0) escolhas.push("• Previsão climática para colheitas");
+        if (pontuacao.afirmacao9 > 0) escolhas.push("• Blockchain medieval nas transações");
+        if (pontuacao.afirmacao10 > 0) escolhas.push("• Recomendação inteligente nas feiras");
+        
+        resultadoTexto += escolhas.join("\n");
+        resultadoTexto += "\n\n✨ *O futuro medieval está em suas mãos!* ✨";
     }
+    
+    textoResultado.textContent = resultadoTexto;
 }
 
-function respostaSelecionada(opcaoSelecionada) {
-    const afirmacoes = opcaoSelecionada.afirmacao;
-    historiaFinal += afirmacoes + " ";
-    atual++;
-    mostraPergunta();
+// Sistema de relógio medieval
+function atualizarRelogio() {
+    const agora = new Date();
+    const horas = agora.getHours().toString().padStart(2, '0');
+    const minutos = agora.getMinutes().toString().padStart(2, '0');
+    const segundos = agora.getSeconds().toString().padStart(2, '0');
+    
+    document.getElementById('horas').textContent = horas;
+    document.getElementById('minutos').textContent = minutos;
+    document.getElementById('segundos').textContent = segundos;
 }
 
-function mostraResultado() {
-    caixaPerguntas.textContent = "Em 2049, no Grande Castelo...";
-    textoResultado.textContent = "A jornada de Luiz: " + historiaFinal;
-    caixaAlternativas.textContent = "";
-}
+setInterval(atualizarRelogio, 1000);
+atualizarRelogio();
 
-mostraPergunta();
-const horas = document.getElementById('horas');
-const minutos = document.getElementById('minutos');
-const segundos = document.getElementById('segundos');
-
-const relogio = setInterval(function time() {
-    let dateToday = new Date();
-    let hr = dateToday.getHours();
-    let min = dateToday.getMinutes();
-    let s = dateToday.getSeconds();
-
-    if (hr < 10) hr = '0' + hr;
-
-    if (min < 10) min = '0' + min;
-
-    if (s < 10) s = '0' + s;
-
-    horas.textContent = hr;
-    minutos.textContent = min;
-    segundos.textContent = s;
-
-})
+// Iniciar o jogo
+mostrarPergunta();
