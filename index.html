@@ -2,88 +2,485 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="IA do Castelo - O futuro medieval está em suas mãos">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1995/1995572.png">
     <title>IA do Castelo | O futuro medieval está em suas mãos</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 30%, #2a1a0e, #0d0804);
+            font-family: 'Inter', 'Cinzel', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        /* Efeito de pergaminho antigo no fundo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Brasão animado sutil */
+        body::after {
+            content: "⚔️🏰⚔️";
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 3rem;
+            opacity: 0.1;
+            pointer-events: none;
+            white-space: pre;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #2c1a10;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c49a6c;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e6b17e;
+        }
+
+        .caixa-principal {
+            max-width: 750px;
+            width: 100%;
+            background: rgba(30, 20, 12, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 2rem 2rem 2rem 2rem;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,200,0.1);
+            border: 1px solid rgba(212, 163, 115, 0.5);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'MedievalSharp', 'Cinzel', cursive;
+            font-size: 3.4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f3c78a, #cb9e6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            word-break: keep-all;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: #e2c6a0;
+            border-top: 1px solid #b8865b;
+            border-bottom: 1px solid #b8865b;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto 1.8rem;
+            padding: 8px 24px;
+            letter-spacing: 2px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+        }
+
+        .caixa-perguntas {
+            background: #1e130cb3;
+            border-left: 6px solid #e6b422;
+            border-right: 6px solid #e6b422;
+            padding: 1.6rem;
+            border-radius: 32px;
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: #fff0db;
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.5), 0 6px 12px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+
+        .caixa-alternativas {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background: linear-gradient(95deg, #2d1e12, #1f1309);
+            border: 1.5px solid #c49a6c;
+            color: #ffefcf;
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.3px;
+        }
+
+        button::before {
+            content: "⚜️";
+            font-size: 1.3rem;
+            filter: drop-shadow(0 0 2px gold);
+        }
+
+        button:hover {
+            background: linear-gradient(95deg, #4a2e1c, #2c1c0f);
+            border-color: #f3cd81;
+            transform: translateX(12px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            color: #fff3e0;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .caixa-resultado {
+            background: #1f130cee;
+            border-radius: 36px;
+            padding: 1.8rem;
+            margin-top: 1rem;
+            border: 1px solid #dbb879;
+            display: none;
+            backdrop-filter: blur(8px);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .texto-resultado {
+            color: #f7e5c2;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            font-weight: 500;
+            white-space: pre-line;
+            font-family: 'Inter', monospace;
+        }
+
+        /* Relógio medieval */
+        .relogio {
+            background: #23190ed4;
+            border-radius: 60px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin: 1.8rem 0 1.2rem;
+            border: 1px solid #b87c4a;
+            backdrop-filter: blur(4px);
+        }
+
+        .relogio div {
+            text-align: center;
+            background: #0c0704;
+            padding: 0.6rem 1rem;
+            border-radius: 32px;
+            min-width: 85px;
+            box-shadow: inset 0 0 6px #dba55133, 0 4px 8px black;
+        }
+
+        .relogio span:not(.tempo) {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'MedievalSharp', monospace;
+            color: #ffda99;
+            display: block;
+            letter-spacing: 4px;
+        }
+
+        .tempo {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #c8aa7a;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        footer {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed #b8865b;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #dcb579;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: #ffd58c;
+            transform: translateY(-5px);
+            filter: drop-shadow(0 0 4px #ffbe5e);
+        }
+
+        footer img {
+            width: 34px;
+            height: 34px;
+            filter: drop-shadow(0 2px 4px black);
+            transition: 0.2s;
+        }
+
+        @media (max-width: 550px) {
+            .caixa-principal {
+                padding: 1.4rem;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .caixa-perguntas {
+                font-size: 1rem;
+                padding: 1.2rem;
+            }
+            button {
+                font-size: 0.85rem;
+                padding: 0.8rem 1rem;
+            }
+            .relogio div {
+                min-width: 60px;
+                padding: 0.4rem 0.6rem;
+            }
+            .relogio span:not(.tempo) {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
 </head>
-<style>
-    body{
-    min-height:150vh;
-    }
-
-    ::-webkit-scrollbar 
-    {
-        width: 12px;
-    }
-
-    ::-webkit-scrollbar-track 
-    {
-        background: #4a2a1a;
-    }
-
-    ::-webkit-scrollbar-thumb 
-    {
-        background: #d4a373;
-        border-radius: 14px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover 
-    {
-        opacity: .95;
-    }
-  </style>
 <body>
-    <div class="caixa-principal">
-        <br>
-        <h1>Castelo & IA</h1>
-        <br>
-        <h2>A inteligência artificial encontra a era medieval</h2>
-        <div class="caixa-perguntas"></div>
-        <div class="caixa-alternativas"></div>
-        <div class="caixa-resultado">
-            <p class="texto-resultado"></p>
-        </div>
-        <br>
-        
-        <div class="relogio">
-            <div>
-                <span id="horas">00</span>
-                <span class="tempo">Horas</span>
-            </div>
-    
-            <div>
-                <span id="minutos">00</span>
-                <span class="tempo">Minutos</span>
-            </div>
-    
-            <div>
-                <span id="segundos">00</span>
-                <span class="tempo">Segundos</span>
-            </div>
-        </div>
-        <section>
-            <footer>
-                <a href="https://github.com/professor-rafael" target="_blank" rel="noopener noreferrer">
-                    <img src="github.png"></img>
-                    <p>Github</p>
-                </a>
-                <a href="https://www.youtube.com/channel/UCBRq6fO_-P6yPOVbC0yZVmQ" target="_blank" rel="noopener noreferrer">
-                    <img src="youtube.png"></img>
-                    <p>Youtube</p>
-                    <a href="https://api.whatsapp.com/send?phone=5543996561825" target="_blank" rel="noopener noreferrer">
-                    <img src="Whatsapp.png"></img>
-                    <p>Whatsapp</p>
-                    </a>
-                    <a href="https://www.deepseek.com/">
-                        <img src="deepseek-color.png"></img>
-                        <p>Deepseek</p>
-                    </a>
-                </a>
-            </footer>
-        </section>
+<div class="caixa-principal">
+    <h1>🏰 IA do Castelo 🧙</h1>
+    <div style="text-align: center;">
+        <h2>⚡ A inteligência artificial encontra a era medieval ⚡</h2>
     </div>
-    
+
+    <div class="caixa-perguntas"></div>
+    <div class="caixa-alternativas"></div>
+    <div class="caixa-resultado">
+        <p class="texto-resultado"></p>
+    </div>
+
+    <div class="relogio">
+        <div><span id="horas">00</span><span class="tempo">Horas</span></div>
+        <div><span id="minutos">00</span><span class="tempo">Minutos</span></div>
+        <div><span id="segundos">00</span><span class="tempo">Segundos</span></div>
+    </div>
+
+    <footer>
+        <a href="https://github.com/professor-rafael" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+            <p>GitHub</p>
+        </a>
+        <a href="https://www.youtube.com/channel/UCBRq6fO_-P6yPOVbC0yZVmQ" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+            <p>YouTube</p>
+        </a>
+        <a href="https://api.whatsapp.com/send?phone=5543996561825" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+            <p>WhatsApp</p>
+        </a>
+        <a href="https://www.deepseek.com/" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/4726/4726005.png" alt="Deepseek">
+            <p>Deepseek</p>
+        </a>
+    </footer>
+</div>
+
+<script>
+    // ********** JORNADA MEDIEVAL COM IA **********
+    const caixaPerguntas = document.querySelector(".caixa-perguntas");
+    const caixaAlternativas = document.querySelector(".caixa-alternativas");
+    const caixaResultado = document.querySelector(".caixa-resultado");
+    const textoResultado = document.querySelector(".texto-resultado");
+
+    const perguntas = [
+        {
+            enunciado: "📜 O Rei Artur convoca o Conselho da IA. Como a inteligência artificial pode proteger o castelo contra dragões sombrios?",
+            alternativas: [
+                { texto: "🤖 Golem autônomo com visão computacional e sensores térmicos", afirmacao: "GolemIA" },
+                { texto: "🧠 Rede neural treinada para detectar padrões de ataque aéreo", afirmacao: "VisaoNeural" }
+            ]
+        },
+        {
+            enunciado: "🔥 O grimório milenar está se desfazendo. Como a IA pode salvar a sabedoria ancestral?",
+            alternativas: [
+                { texto: "📸 OCR medieval + blockchain para autenticar os pergaminhos", afirmacao: "OCRMedieval" },
+                { texto: "🗣️ LLM (Grande Modelo de Linguagem) capaz de recitar e traduzir feitiços", afirmacao: "LLMFeiticos" }
+            ]
+        },
+        {
+            enunciado: "⚔️ Espiões infiltrados! Qual estratégia de IA revelaria os traidores no castelo?",
+            alternativas: [
+                { texto: "👁️ Reconhecimento facial e análise comportamental nos portões", afirmacao: "ReconhecimentoFacial" },
+                { texto: "📡 Algoritmo de mineração de dados nas conversas da taverna", afirmacao: "MineracaoDados" }
+            ]
+        },
+        {
+            enunciado: "🌾 A fome ameaça o reino. Como a IA otimizaria as colheitas e estoques?",
+            alternativas: [
+                { texto: "🚜 Sensoriamento remoto por drones (grifos mecânicos) + predição de safra", afirmacao: "DroneGrifo" },
+                { texto: "📊 Sistema de recomendação de rotação de culturas baseado em IA", afirmacao: "RotacaoCulturas" }
+            ]
+        },
+        {
+            enunciado: "💰 O tesouro real precisa de gestão justa. Como a IA pode evitar corrupção?",
+            alternativas: [
+                { texto: "🔗 Blockchain medieval com contratos inteligentes", afirmacao: "BlockchainMedieval" },
+                { texto: "📈 Algoritmo de transparência fiscal e auditoria automática", afirmacao: "AuditoriaIA" }
+            ]
+        }
+    ];
+
+    let atual = 0;
+    let pontuacao = {};
+
+    // Inicializa pontuação dinamicamente
+    function initPontuacao() {
+        perguntas.forEach(pergunta => {
+            pergunta.alternativas.forEach(alt => {
+                pontuacao[alt.afirmacao] = 0;
+            });
+        });
+    }
+
+    function mostrarPergunta() {
+        if (atual >= perguntas.length) {
+            mostrarResultadoFinal();
+            return;
+        }
+
+        const perguntaAtual = perguntas[atual];
+        caixaPerguntas.textContent = perguntaAtual.enunciado;
+        caixaAlternativas.innerHTML = "";
+
+        perguntaAtual.alternativas.forEach((alternativa, idx) => {
+            const botao = document.createElement("button");
+            botao.textContent = alternativa.texto;
+            botao.addEventListener("click", () => {
+                pontuacao[alternativa.afirmacao] += 1;
+                atual++;
+                mostrarPergunta();
+            });
+            caixaAlternativas.appendChild(botao);
+        });
+    }
+
+    function mostrarResultadoFinal() {
+        caixaPerguntas.style.display = "none";
+        caixaAlternativas.style.display = "none";
+        caixaResultado.style.display = "block";
+
+        const escolhasFeitas = Object.entries(pontuacao).filter(([_, valor]) => valor > 0).map(([chave]) => chave);
+        
+        let tituloEpico = "✨ RELATÓRIO DO CONSELHO DA IA ✨\n";
+        let corpoRelato = "";
+
+        if (escolhasFeitas.length >= 4) {
+            corpoRelato = "⚜️ O reino agora respira um novo amanhecer tecnológico! ⚜️\n\n📜 Inovações implementadas:\n";
+            escolhasFeitas.forEach(escolha => {
+                const mapaNomes = {
+                    GolemIA: "• Golem algorítmico patrulha as muralhas",
+                    VisaoNeural: "• Visão neural anti-dragões",
+                    OCRMedieval: "• Biblioteca eterna com OCR + blockchain",
+                    LLMFeiticos: "• Oráculo de linguagem guarda feitiços",
+                    ReconhecimentoFacial: "• Reconhecimento facial nos portões",
+                    MineracaoDados: "• Inteligência de dados na taverna",
+                    DroneGrifo: "• Grifos-drones monitoram as colheitas",
+                    RotacaoCulturas: "• IA agrícola medieval",
+                    BlockchainMedieval: "• Contratos inteligentes no reino",
+                    AuditoriaIA: "• Auditoria automática do tesouro"
+                };
+                corpoRelato += (mapaNomes[escolha] || `• ${escolha}`) + "\n";
+            });
+            corpoRelato += "\n🏆 O castelo está preparado para mil anos de reinado inteligente! 🏆";
+        } else {
+            corpoRelato = "⚠️ O conselho hesitou... ainda há sombras no reino. Tente novamente com mais ousadia, nobre estrategista! ⚔️";
+        }
+
+        textoResultado.textContent = `${tituloEpico}\n\n${corpoRelato}\n\n🕯️ "O futuro medieval está em suas mãos" 🕯️`;
+        
+        // Efeito sonoro simbólico? só visual mesmo, mas bem feito
+        caixaResultado.style.animation = "none";
+        caixaResultado.offsetHeight;
+        caixaResultado.style.animation = "fadeInUp 0.6s ease";
+    }
+
+    // Relógio medieval preciso
+    function atualizarRelogio() {
+        const agora = new Date();
+        document.getElementById("horas").textContent = agora.getHours().toString().padStart(2, '0');
+        document.getElementById("minutos").textContent = agora.getMinutes().toString().padStart(2, '0');
+        document.getElementById("segundos").textContent = agora.getSeconds().toString().padStart(2, '0');
+    }
+    setInterval(atualizarRelogio, 1000);
+    atualizarRelogio();
+
+    initPontuacao();
+    mostrarPergunta();
+</script>
 </body>
-<script src="script.js"></script>
 </html>
